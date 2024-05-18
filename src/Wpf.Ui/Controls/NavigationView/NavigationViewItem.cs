@@ -105,6 +105,15 @@ public class NavigationViewItem
         new PropertyMetadata(null)
     );
 
+    /// <summary>Identifies the <see cref="TargetPage"/> dependency property.</summary>
+    public static readonly DependencyProperty TargetPageProperty = DependencyProperty.Register(
+        nameof(TargetPage),
+        typeof(Page),
+        typeof(NavigationViewItem),
+        new PropertyMetadata(null)
+    );
+
+
     /// <summary>Identifies the <see cref="InfoBadge"/> dependency property.</summary>
     public static readonly DependencyProperty InfoBadgeProperty = DependencyProperty.Register(
         nameof(InfoBadge),
@@ -199,6 +208,12 @@ public class NavigationViewItem
     {
         get => (Type?)GetValue(TargetPageTypeProperty);
         set => SetValue(TargetPageTypeProperty, value);
+    }
+
+    public Page? TargetPage
+    {
+        get => (Page?)GetValue(TargetPageProperty);
+        set => SetValue(TargetPageProperty, value);
     }
 
     public InfoBadge? InfoBadge

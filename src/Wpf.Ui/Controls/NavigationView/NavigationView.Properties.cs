@@ -242,6 +242,29 @@ public partial class NavigationView
         new FrameworkPropertyMetadata(default(Thickness))
     );
 
+    /// <summary>Identifies the <see cref="FrameMargin"/> dependency property.</summary>
+    public static readonly DependencyProperty SelectedItemProperty = DependencyProperty.Register(
+        nameof(SelectedItem),
+        typeof(INavigationViewItem),
+        typeof(NavigationView),
+        new FrameworkPropertyMetadata(null, OnSelectedItemChanged)
+    );
+
+    private static void OnSelectedItemChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        if (d is not NavigationView navigationView)
+        {
+            return;
+        }
+
+        if (e.NewValue is not INavigationViewItem selectedItem)
+        {
+            return;
+        }
+
+        navigationView.Navigate(selectedItem.TargetPageTag);
+    }
+
     /// <summary>
     /// Gets or sets a value indicating whether debugging messages for this control are enabled
     /// </summary>
@@ -270,6 +293,13 @@ public partial class NavigationView
     {
         get => (bool)GetValue(AlwaysShowHeaderProperty);
         set => SetValue(AlwaysShowHeaderProperty, value);
+    }
+
+    /// <inheritdoc/>
+    public INavigationViewItem? SelectedItem
+    {
+        get => (INavigationViewItem?)GetValue(SelectedItemProperty);
+        set => SetValue(SelectedItemProperty, value);
     }
 
     /// <inheritdoc/>

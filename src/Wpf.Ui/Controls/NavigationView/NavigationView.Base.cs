@@ -55,9 +55,6 @@ public partial class NavigationView : System.Windows.Controls.Control, INavigati
         SetValue(FooterMenuItemsPropertyKey, footerMenuItems);
     }
 
-    /// <inheritdoc/>
-    public INavigationViewItem? SelectedItem { get; protected set; }
-
     protected Dictionary<string, INavigationViewItem> PageIdOrTargetTagNavigationViewsDictionary { get; } =
         [];
 

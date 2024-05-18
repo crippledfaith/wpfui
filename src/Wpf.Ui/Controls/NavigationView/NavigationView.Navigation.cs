@@ -259,6 +259,11 @@ public partial class NavigationView
             );
         }
 
+        if (viewItem is NavigationViewItem navigation && navigation.TargetPage != null)
+        {
+            return navigation.TargetPage;
+        }
+
         if (_serviceProvider is not null)
         {
             return _serviceProvider.GetService(viewItem.TargetPageType)
