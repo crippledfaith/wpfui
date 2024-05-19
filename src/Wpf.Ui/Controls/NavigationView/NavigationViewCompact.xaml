@@ -8,7 +8,8 @@
         <ResourceDictionary Source="pack://application:,,,/Wpf.Ui;component/Controls/NavigationView/NavigationViewConstants.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
-    <ControlTemplate x:Key="LeftCompactNavigationViewItemTemplate" TargetType="{x:Type controls:NavigationViewItem}">
+    <ControlTemplate x:Key="LeftCompactNavigationViewItemTemplate" 
+                     TargetType="{x:Type controls:NavigationViewItem}">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -23,6 +24,7 @@
                 Padding="0"
                 BorderBrush="{TemplateBinding BorderBrush}"
                 BorderThickness="1"
+                ToolTip="{TemplateBinding Content}"
                 CornerRadius="{TemplateBinding Border.CornerRadius}">
                 <Border.Style>
                     <Style TargetType="{x:Type Border}">
@@ -291,6 +293,7 @@
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="*" />
                             <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
                         <!--  Back and Toggle buttons  -->
@@ -379,26 +382,26 @@
                                         </ItemsPanelTemplate>
                                     </ItemsControl.ItemsPanel>
                                 </ItemsControl>
-                                <ItemsControl
+
+                            </Grid>
+                        </controls:DynamicScrollViewer>
+                        <ItemsControl
                                     x:Name="PART_FooterMenuItemsItemsControl"
-                                    Grid.Row="1"
+                                    Grid.Row="2"
                                     Margin="0,0,0,4"
                                     Focusable="False"
                                     KeyboardNavigation.DirectionalNavigation="Contained"
                                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                     ScrollViewer.VerticalScrollBarVisibility="Disabled">
-                                    <ItemsControl.ItemsPanel>
-                                        <ItemsPanelTemplate>
-                                            <StackPanel Margin="0" IsItemsHost="True" />
-                                        </ItemsPanelTemplate>
-                                    </ItemsControl.ItemsPanel>
-                                </ItemsControl>
-                            </Grid>
-                        </controls:DynamicScrollViewer>
-
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Margin="0" IsItemsHost="True" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
                         <!--  Pane footer  -->
                         <ContentPresenter
-                            Grid.Row="2"
+                            Grid.Row="3"
                             Margin="0"
                             Content="{TemplateBinding PaneFooter}" />
                     </Grid>

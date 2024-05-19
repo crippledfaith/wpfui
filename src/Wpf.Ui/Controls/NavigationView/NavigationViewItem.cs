@@ -236,7 +236,7 @@ public class NavigationViewItem
     public bool IsMenuElement { get; set; }
 
     /// <inheritdoc />
-    public string Id { get; }
+    public string Id { get; set; }
 
     protected Grid? ChevronGrid { get; set; }
 

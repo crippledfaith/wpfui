@@ -82,7 +82,7 @@
                 ItemsSource="{TemplateBinding MenuItemsSource}"
                 KeyboardNavigation.DirectionalNavigation="Contained"
                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                ScrollViewer.VerticalScrollBarVisibility="Visible">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Margin="0" IsItemsHost="True" />

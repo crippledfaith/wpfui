@@ -241,7 +241,7 @@ public partial class NavigationView : System.Windows.Controls.Control, INavigati
         _ = Navigate(item.PageId);
     }
 
-    private void UpdateAutoSuggestBoxSuggestions()
+    public void UpdateAutoSuggestBoxSuggestions()
     {
         if (AutoSuggestBox == null)
         {
@@ -366,8 +366,8 @@ public partial class NavigationView : System.Windows.Controls.Control, INavigati
 
     protected virtual void AddItemsToDictionaries()
     {
-        AddItemsToDictionaries(MenuItems);
-        AddItemsToDictionaries(FooterMenuItems);
+        AddItemsToDictionaries(MenuItemsSource);
+        AddItemsToDictionaries(FooterMenuItemsSource);
     }
 
     protected virtual void AddItemsToAutoSuggestBoxItems(IEnumerable list)
@@ -391,8 +391,8 @@ public partial class NavigationView : System.Windows.Controls.Control, INavigati
 
     protected virtual void AddItemsToAutoSuggestBoxItems()
     {
-        AddItemsToAutoSuggestBoxItems(MenuItems);
-        AddItemsToAutoSuggestBoxItems(FooterMenuItems);
+        AddItemsToAutoSuggestBoxItems(MenuItemsSource);
+        AddItemsToAutoSuggestBoxItems(FooterMenuItemsSource);
     }
 
     protected virtual bool NavigateToMenuItemFromAutoSuggestBox(

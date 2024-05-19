@@ -486,6 +486,9 @@ public partial class NavigationView
             UpdateMenuItemsTemplate(e.NewItems);
             AddItemsToDictionaries(e.NewItems);
         }
+
+        AddItemsToDictionaries();
+        UpdateAutoSuggestBoxSuggestions();
     }
 
     private static void OnMenuItemsSourceChanged(DependencyObject? d, DependencyPropertyChangedEventArgs e)
