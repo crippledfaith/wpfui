@@ -33,6 +33,11 @@ public interface INavigationViewItem
     IconElement? Icon { get; set; }
 
     /// <summary>
+    /// Gets or sets a value indicating whether Is Close Button displayed.
+    /// </summary>
+    Visibility IsCloseButtonVisible { get; set; }
+
+    /// <summary>
     /// Gets the collection of menu items displayed in the NavigationView.
     /// </summary>
     IList MenuItems { get; }

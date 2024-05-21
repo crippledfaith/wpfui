@@ -83,6 +83,12 @@
                         Margin="0"
                         Content="{TemplateBinding InfoBadge}" />
 
+                    <controls:Button
+                        x:Name="PART_CloseButton"
+                        Grid.Column="2"
+                        Visibility="{TemplateBinding IsCloseButtonVisible}">
+                        <controls:SymbolIcon Symbol="Delete32" />
+                    </controls:Button>
                     <Grid
                         x:Name="PART_ChevronGrid"
                         Grid.Column="3"

@@ -24,6 +24,10 @@ public class NavigationViewItem
         INavigationViewItem,
         IIconControl
 {
+    public delegate void CloseEventHandler(NavigationViewItem navigationViewItem);
+
+    public event CloseEventHandler? CloseEvent;
+
     protected const string TemplateElementChevronGrid = "PART_ChevronGrid";
 
     private static readonly DependencyPropertyKey MenuItemsPropertyKey = DependencyProperty.RegisterReadOnly(
@@ -130,6 +134,14 @@ public class NavigationViewItem
         new FrameworkPropertyMetadata(NavigationCacheMode.Disabled)
     );
 
+    /// <summary>Identifies the <see cref="IsCloseButtonVisible"/> dependency property.</summary>
+    public static readonly DependencyProperty IsCloseButtonVisibleProperty = DependencyProperty.Register(
+        nameof(IsCloseButtonVisible),
+        typeof(Visibility),
+        typeof(NavigationViewItem),
+        new FrameworkPropertyMetadata(Visibility.Visible)
+    );
+
     /// <inheritdoc/>
     public IList MenuItems => (ObservableCollection<object>)GetValue(MenuItemsProperty);
 
@@ -194,6 +206,14 @@ public class NavigationViewItem
     {
         get => (IconElement?)GetValue(IconProperty);
         set => SetValue(IconProperty, value);
+    }
+
+    /// <inheritdoc />
+    [Bindable(true)]
+    public Visibility IsCloseButtonVisible
+    {
+        get => (Visibility)GetValue(IsCloseButtonVisibleProperty);
+        set => SetValue(IsCloseButtonVisibleProperty, value);
     }
 
     /// <inheritdoc />
@@ -263,6 +283,11 @@ public class NavigationViewItem
         var menuItems = new ObservableCollection<object>();
         menuItems.CollectionChanged += OnMenuItems_CollectionChanged;
         SetValue(MenuItemsPropertyKey, menuItems);
+    }
+
+    private void CloseButtonClick(object sender, RoutedEventArgs e)
+    {
+        CloseEvent?.Invoke(this);
     }
 
     public NavigationViewItem(Type targetPageType)
@@ -490,9 +515,57 @@ public class NavigationViewItem
         if (NavigationView.GetNavigationParent(this) is { } navigationView)
         {
             SetCurrentValue(IsPaneOpenProperty, navigationView.IsPaneOpen);
+            if (FindChild<System.Windows.Controls.Button>(this, "PART_CloseButton") is System.Windows.Controls.Button closeButton)
+            {
+
+                closeButton.Click += CloseButtonClick;
+            }
 
             navigationView.PaneOpened += (_, _) => SetCurrentValue(IsPaneOpenProperty, true);
             navigationView.PaneClosed += (_, _) => SetCurrentValue(IsPaneOpenProperty, false);
         }
+    }
+
+    public static T FindChild<T>(DependencyObject parent, string childName) where T : DependencyObject
+    {
+        // Confirm parent and childName are valid. 
+        if (parent == null) return null;
+
+        T foundChild = null;
+
+        int childrenCount = VisualTreeHelper.GetChildrenCount(parent);
+        for (int i = 0; i < childrenCount; i++)
+        {
+            var child = VisualTreeHelper.GetChild(parent, i);
+            // If the child is not of the request child type child
+            T childType = child as T;
+            if (childType == null)
+            {
+                // recursively drill down the tree
+                foundChild = FindChild<T>(child, childName);
+
+                // If the child is found, break so we do not overwrite the found child. 
+                if (foundChild != null) break;
+            }
+            else if (!string.IsNullOrEmpty(childName))
+            {
+                var frameworkElement = child as FrameworkElement;
+                // If the child's name is set for search
+                if (frameworkElement != null && frameworkElement.Name == childName)
+                {
+                    // if the child's name is of the request name
+                    foundChild = (T)child;
+                    break;
+                }
+            }
+            else
+            {
+                // child element found.
+                foundChild = (T)child;
+                break;
+            }
+        }
+
+        return foundChild;
     }
 }

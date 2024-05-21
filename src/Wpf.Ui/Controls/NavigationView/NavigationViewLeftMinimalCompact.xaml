@@ -143,6 +143,12 @@
                                                 TextElement.FontSize="14"
                                                 TextElement.Foreground="{TemplateBinding Foreground}" />
 
+                                            <controls:Button
+                                                x:Name="PART_CloseButton"
+                                                Grid.Column="2"
+                                                Visibility="{TemplateBinding IsCloseButtonVisible}">
+                                                <controls:SymbolIcon Symbol="Delete48" />
+                                            </controls:Button>
                                             <ContentPresenter
                                                 x:Name="PART_InfoBadge"
                                                 Grid.Column="2"

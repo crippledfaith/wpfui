@@ -123,8 +123,7 @@ public partial class NavigationView
             NavigationViewContentPresenter.Navigated += OnNavigationViewContentPresenterNavigated;
         }
 
-        if (
-            GetTemplateChild(TemplateElementAutoSuggestBoxSymbolButton)
+        if (GetTemplateChild(TemplateElementAutoSuggestBoxSymbolButton)
             is System.Windows.Controls.Button autoSuggestBoxSymbolButton
         )
         {
